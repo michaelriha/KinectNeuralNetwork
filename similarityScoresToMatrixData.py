@@ -17,8 +17,22 @@
 
 import os
 
-inputDir = "SimilarityScores"
-output = "kinectMatrixData.txt"
+includeRotation = True
+includePosition = False
+output = "kinectMatrixData"
+if includeRotation:
+    if includePosition:
+        output += "Comb"
+    else:
+        output +=  "Rot"
+elif includePosition:
+    output += "Pos"
+else:
+    print("You need to specify either position or rotation parameters")
+    exit(0)
+output += ".txt"
+
+inputDir = "SimilarityScores"    
 judgeScoreName = "judge_score.txt"
 jointsRecorded = 24
 paramsRecorded = 9
@@ -55,8 +69,10 @@ for root, dirs, files in os.walk(inputDir):
             for char in jointData[1:]:
                 endIndex += 1
                 if not char.isdigit():
-                    break    
-            outData[int(jointData[1:endIndex])-1] += float(simScore)
+                    break
+            rot = jointData[endIndex].lower() == 'r'
+            if (rot and includeRotation) or (not rot and includePosition):
+                outData[int(jointData[1:endIndex])-1] += float(simScore)
             
         # Average the joint similarities and convert float to str
         for i in range(jointsRecorded):
