@@ -19,14 +19,18 @@ import os
 
 includeRotation = True
 includePosition = False
+paramsRecorded = 0
 output = "kinectMatrixData"
 if includeRotation:
     if includePosition:
         output += "Comb"
+        paramsRecorded = 12
     else:
         output +=  "Rot"
+        paramsRecorded = 9
 elif includePosition:
     output += "Pos"
+    paramsRecorded = 3
 else:
     print("You need to specify either position or rotation parameters")
     exit(0)
@@ -35,7 +39,6 @@ output += ".txt"
 inputDir = "SimilarityScores"    
 judgeScoreName = "judge_score.txt"
 jointsRecorded = 24
-paramsRecorded = 9
 
 # Dictionary mapping names to judge scores
 judgeScores = {}
