@@ -12,7 +12,7 @@
 #
 #   How to use the Output to simulate the trained scoreNN:
 #
-#     [scoreNN, cMean, cStd] = train_test_NN(trainX, trainY);
+#     [scoreNN, cMean, cStd] = trainNN(trainX, trainY);
 #     testX_std = trastd(testX, cMean, cStd);
 #     simY = sim(scoreNN, testX_std);
 #     # simY now containes the output prodused by the scoreNN 
